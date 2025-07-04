@@ -1,10 +1,10 @@
-
-import { typeAssert, IsTypeEqual, ArrayElement } from '../../utils/type-assertions';
-import {nameDecorators} from './index';
+import {
+  typeAssert,
+  IsTypeEqual,
+  ArrayElement,
+} from '../../utils/type-assertions';
+import { nameDecorators } from './index';
 
 typeAssert<
-    IsTypeEqual<
-        ArrayElement<typeof nameDecorators>,
-        (input: string) => string
-    >
+  IsTypeEqual<ArrayElement<typeof nameDecorators>, (input: string) => string>
 >();

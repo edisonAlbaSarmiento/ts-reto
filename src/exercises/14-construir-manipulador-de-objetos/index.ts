@@ -1,21 +1,27 @@
-export class ObjectManipulator {
-  constructor(protected obj: { [x: string]: any; x?: boolean; y?: string }) {}
+export class ObjectManipulator<T extends object> {
+  constructor(protected obj: T) {}
 
-  public set(key: string, value: string | number | boolean) {
-    return new ObjectManipulator({ ...this.obj, [key]: value });
+  public set<K extends string, V>(
+    key: K,
+    value: V
+  ): ObjectManipulator<Omit<T, K> & Record<K, V>> {
+    return new ObjectManipulator({
+      ...(this.obj as any),
+      [key]: value,
+    });
   }
 
-  public get(key: string) {
+  public get<K extends keyof T>(key: K): T[K] {
     return this.obj[key];
   }
 
-  public delete(key: string) {
-    const newObj = { ...this.obj };
+  public delete<K extends keyof T>(key: K): ObjectManipulator<Omit<T, K>> {
+    const newObj = { ...(this.obj as any) };
     delete newObj[key];
     return new ObjectManipulator(newObj);
   }
 
-  public getObject() {
+  public getObject(): T {
     return this.obj;
   }
 }

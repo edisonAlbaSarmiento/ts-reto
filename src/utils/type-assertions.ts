@@ -31,4 +31,6 @@ export type ArrayElement<T> = T extends (infer I)[] ? I : never;
 /**
  * A simple type assertion function which always expects a true-type.
  */
-export function typeAssert<T extends true>() {}
+export function typeAssert<T extends true>() {
+  void (0 as unknown as T);
+}
